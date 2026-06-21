@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PageIntro } from "@/components/PageIntro";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
 import { getAllPosts } from "@/lib/blog";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -41,8 +41,7 @@ export default function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose"
               >
-                <PlaceholderPhoto
-                  label="Journal cover image"
+                <Photo
                   alt={`Cover image for ${post.title}`}
                   className="aspect-[16/10] transition-transform duration-300 group-hover:scale-[1.01] motion-reduce:transform-none motion-reduce:transition-none"
                 />

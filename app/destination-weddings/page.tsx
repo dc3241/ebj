@@ -3,9 +3,10 @@ import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FAQ } from "@/components/FAQ";
 import { Eyebrow } from "@/components/Eyebrow";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
 import { Testimonials } from "@/components/Testimonials";
 import { destinationFAQ } from "@/lib/faq";
+import { getAltText, gallerySrc } from "@/lib/image-alt";
 import { createPageMetadata } from "@/lib/metadata";
 import { destinationTestimonials } from "@/lib/testimonials";
 
@@ -47,10 +48,11 @@ const steps = [
 ] as const;
 
 const destinationGallery = [
-  { label: "Destination wedding", caption: "Megan & Chris · Tuscany" },
-  { label: "Destination wedding", caption: "Priya & Daniel · Cabo" },
-  { label: "Destination wedding", caption: "Elena & Marco · Amalfi Coast" },
-  { label: "Destination wedding", caption: "Nina & Oscar · Paris" },
+  "destination-bride-cliff-ocean.jpg",
+  "destination-couple-beach-formal.jpg",
+  "destination-couple-beach-handhold.jpg",
+  "destination-couple-beach-walk.jpg",
+  "couple-snow-forest.jpg",
 ] as const;
 
 export default function DestinationWeddingsPage() {
@@ -71,9 +73,10 @@ export default function DestinationWeddingsPage() {
             </p>
           </div>
 
-          <PlaceholderPhoto
-            label="Destination hero photograph"
-            alt="Destination wedding ceremony abroad"
+          <Photo
+            src={gallerySrc("destination-bride-cliff-ocean.jpg")}
+            alt={getAltText("destination-bride-cliff-ocean")}
+            priority
             className="aspect-[16/11] min-[881px]:aspect-[4/5]"
           />
         </Container>
@@ -137,18 +140,19 @@ export default function DestinationWeddingsPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-5 min-[881px]:grid-cols-4 min-[881px]:gap-6">
-          {destinationGallery.map((photo) => (
-            <PlaceholderPhoto
-              key={photo.caption}
-              label={photo.label}
-              alt={`Destination wedding: ${photo.caption}`}
-              className="aspect-[4/5]"
-            >
-              <span className="absolute bottom-3.5 left-4 z-[2] bg-white/86 px-[11px] py-[5px] font-sans text-[0.7rem] uppercase tracking-btn text-charcoal">
-                {photo.caption}
-              </span>
-            </PlaceholderPhoto>
-          ))}
+          {destinationGallery.map((filename) => {
+            const slug = filename.replace(/\.[^.]+$/, "");
+            const alt = getAltText(slug);
+
+            return (
+              <Photo
+                key={filename}
+                src={gallerySrc(filename)}
+                alt={alt}
+                className="aspect-[4/5]"
+              />
+            );
+          })}
         </div>
       </Container>
 

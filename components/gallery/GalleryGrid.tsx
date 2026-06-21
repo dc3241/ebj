@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Container } from "@/components/Container";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
-import type { GalleryWedding } from "@/lib/gallery";
+import { Photo } from "@/components/Photo";
+import type { GalleryImage } from "@/lib/gallery";
 
 type GalleryGridProps = {
-  weddings: GalleryWedding[];
+  weddings: GalleryImage[];
 };
 
 const FOCUSABLE_SELECTOR =
@@ -15,7 +15,10 @@ const FOCUSABLE_SELECTOR =
 function getFocusableElements(container: HTMLElement) {
   return Array.from(
     container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-  ).filter((element) => !element.hasAttribute("disabled") && element.offsetParent !== null);
+  ).filter(
+    (element) =>
+      !element.hasAttribute("disabled") && element.offsetParent !== null,
+  );
 }
 
 export function GalleryGrid({ weddings }: GalleryGridProps) {
@@ -81,41 +84,33 @@ export function GalleryGrid({ weddings }: GalleryGridProps) {
     };
   }, [closeLightbox, openIndex]);
 
-  const activeWedding = openIndex !== null ? weddings[openIndex] : null;
+  const activeImage = openIndex !== null ? weddings[openIndex] : null;
 
   return (
     <>
       <Container as="section" className="pb-20 min-[881px]:pb-28">
         <div className="grid auto-rows-[160px] grid-cols-2 gap-5 min-[881px]:auto-rows-[220px] min-[881px]:grid-cols-4 min-[881px]:gap-6">
-          {weddings.map((wedding, index) => {
-            const caption = wedding.caption ?? `${wedding.couple} · ${wedding.location}`;
-
-            return (
-              <button
-                key={wedding.id}
-                type="button"
-                className={`group block w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose motion-reduce:transition-none ${wedding.gridClass}`}
-                onClick={(event) => openLightbox(index, event.currentTarget)}
-                aria-haspopup="dialog"
-                aria-label={`View photo: ${caption}`}
-              >
-                <PlaceholderPhoto
-                  label={wedding.label}
-                  alt={`Wedding photo: ${caption}`}
-                  decorative
-                  className="h-full w-full transition-transform duration-300 group-hover:scale-[1.01] motion-reduce:transform-none motion-reduce:transition-none"
-                >
-                  <span className="absolute bottom-3.5 left-4 z-[2] bg-white/86 px-[11px] py-[5px] font-sans text-[0.7rem] uppercase tracking-btn text-charcoal">
-                    {wedding.couple} · {wedding.location}
-                  </span>
-                </PlaceholderPhoto>
-              </button>
-            );
-          })}
+          {weddings.map((image, index) => (
+            <button
+              key={image.id}
+              type="button"
+              className={`group block w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose motion-reduce:transition-none ${image.gridClass}`}
+              onClick={(event) => openLightbox(index, event.currentTarget)}
+              aria-haspopup="dialog"
+              aria-label={`View photo: ${image.alt}`}
+            >
+              <Photo
+                src={image.src}
+                alt={image.alt}
+                decorative
+                className="h-full w-full transition-transform duration-300 group-hover:scale-[1.01] motion-reduce:transform-none motion-reduce:transition-none"
+              />
+            </button>
+          ))}
         </div>
       </Container>
 
-      {activeWedding && (
+      {activeImage && (
         <div
           className="fixed inset-0 z-[100] flex items-end justify-center bg-charcoal/90 p-4 min-[881px]:items-center min-[881px]:p-8"
           onClick={closeLightbox}
@@ -140,18 +135,13 @@ export function GalleryGrid({ weddings }: GalleryGridProps) {
               ✕
             </button>
 
-            <div
-              className="photo-placeholder relative aspect-[4/3] w-full overflow-hidden rounded-[2px] border border-line min-[881px]:aspect-[16/10]"
-              role="img"
-              aria-label={`${activeWedding.couple} wedding in ${activeWedding.location}`}
-            >
-              {/* TODO: replace with real photo */}
-              <span
-                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-sans text-[0.66rem] font-normal uppercase tracking-[0.18em] text-slate opacity-65"
-                aria-hidden="true"
-              >
-                {activeWedding.label}
-              </span>
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2px] border border-line min-[881px]:aspect-[16/10]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={activeImage.src}
+                alt={activeImage.alt}
+                className="h-full w-full object-cover"
+              />
             </div>
 
             <div className="mt-5 pr-10">
@@ -159,11 +149,10 @@ export function GalleryGrid({ weddings }: GalleryGridProps) {
                 id={titleId}
                 className="font-serif text-[clamp(1.5rem,3vw,2rem)] text-charcoal"
               >
-                {activeWedding.couple}
+                Wedding gallery
               </h2>
               <p id={descriptionId} className="mt-2 text-slate">
-                {activeWedding.location}
-                {activeWedding.caption ? ` — ${activeWedding.caption}` : ""}
+                {activeImage.alt}
               </p>
             </div>
           </div>

@@ -1,85 +1,40 @@
-export type GalleryWedding = {
+import fs from "node:fs";
+import path from "node:path";
+import { getAltText, getGridClass, gallerySrc } from "@/lib/image-alt";
+
+export type GalleryImage = {
   id: string;
-  couple: string;
-  location: string;
-  label: string;
-  caption?: string;
+  src: string;
+  alt: string;
   gridClass: string;
 };
 
-export const galleryWeddings: GalleryWedding[] = [
-  {
-    id: "sarah-tom-sedona",
-    couple: "Sarah & Tom",
-    location: "Sedona, Arizona",
-    label: "Featured wedding",
-    caption: "Desert modern with terracotta tones",
-    gridClass:
-      "col-span-2 row-span-2 min-[881px]:col-span-2 min-[881px]:row-span-2",
-  },
-  {
-    id: "aisha-dev-scottsdale",
-    couple: "Aisha & Dev",
-    location: "Scottsdale, Arizona",
-    label: "Wedding photo",
-    gridClass: "",
-  },
-  {
-    id: "megan-chris-tuscany",
-    couple: "Megan & Chris",
-    location: "Tuscany, Italy",
-    label: "Wedding photo",
-    caption: "Villa ceremony at golden hour",
-    gridClass: "",
-  },
-  {
-    id: "lauren-beau-phoenix",
-    couple: "Lauren & Beau",
-    location: "Phoenix, Arizona",
-    label: "Wedding photo",
-    gridClass: "col-span-2 min-[881px]:col-span-2",
-  },
-  {
-    id: "elena-marco-amalfi",
-    couple: "Elena & Marco",
-    location: "Amalfi Coast, Italy",
-    label: "Wedding photo",
-    gridClass: "row-span-2 min-[881px]:row-span-2",
-  },
-  {
-    id: "jordan-alex-flagstaff",
-    couple: "Jordan & Alex",
-    location: "Flagstaff, Arizona",
-    label: "Wedding photo",
-    gridClass: "",
-  },
-  {
-    id: "priya-daniel-cabo",
-    couple: "Priya & Daniel",
-    location: "Cabo San Lucas, Mexico",
-    label: "Wedding photo",
-    caption: "Cliffside reception under the stars",
-    gridClass: "col-span-2 min-[881px]:col-span-2",
-  },
-  {
-    id: "hannah-luke-tucson",
-    couple: "Hannah & Luke",
-    location: "Tucson, Arizona",
-    label: "Wedding photo",
-    gridClass: "",
-  },
-  {
-    id: "nina-oscar-paris",
-    couple: "Nina & Oscar",
-    location: "Paris, France",
-    label: "Wedding photo",
-    gridClass: "col-span-2 row-span-1 min-[881px]:col-span-2 min-[881px]:row-span-2",
-  },
-  {
-    id: "rebecca-james-sedona",
-    couple: "Rebecca & James",
-    location: "Sedona, Arizona",
-    label: "Wedding photo",
-    gridClass: "",
-  },
-];
+function loadGalleryImages(): GalleryImage[] {
+  const galleryDir = path.join(process.cwd(), "public/images/gallery");
+
+  if (!fs.existsSync(galleryDir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(galleryDir)
+    .filter((file) => /\.(jpe?g|png|webp)$/i.test(file))
+    .sort()
+    .map((file, index) => {
+      const id = file.replace(/\.[^.]+$/, "");
+
+      return {
+        id,
+        src: gallerySrc(file),
+        alt: getAltText(id),
+        gridClass: getGridClass(index, id),
+      };
+    });
+}
+
+export const galleryImages: GalleryImage[] = loadGalleryImages();
+
+/** @deprecated Use galleryImages — alias for GalleryGrid prop name. */
+export const galleryWeddings = galleryImages;
+
+export type GalleryWedding = GalleryImage;

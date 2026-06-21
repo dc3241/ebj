@@ -1,14 +1,13 @@
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
 import { LinkArrow } from "@/components/LinkArrow";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
 
 export function AboutTeaser() {
   return (
     <section className="bg-cream">
       <Container className="grid items-center gap-[34px] py-16 min-[881px]:grid-cols-[0.85fr_1.15fr] min-[881px]:gap-[60px] min-[881px]:py-24">
-        <PlaceholderPhoto
-          label="Portrait of Jordyn"
+        <Photo
           alt="Portrait of Jordyn, wedding planner"
           className="aspect-[16/11] min-[881px]:aspect-[3/4]"
         />

@@ -1,28 +1,29 @@
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
 import { LinkArrow } from "@/components/LinkArrow";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
+import { getAltText, gallerySrc } from "@/lib/image-alt";
 
 const weddings = [
   {
-    label: "Featured wedding",
-    caption: "Sarah & Tom · Sedona",
+    filename: "couple-embrace-gown-train.jpg",
+    caption: "Couple embrace",
     className:
       "col-span-2 row-span-1 min-[881px]:col-span-2 min-[881px]:row-span-2",
   },
   {
-    label: "Wedding photo",
-    caption: "Aisha & Dev · Scottsdale",
+    filename: "bride-dancing-twirl.jpg",
+    caption: "First dance",
     className: "",
   },
   {
-    label: "Wedding photo",
-    caption: "Megan & Chris · Tuscany",
+    filename: "destination-bride-cliff-ocean.jpg",
+    caption: "Destination wedding",
     className: "",
   },
   {
-    label: "Wedding photo",
-    caption: "Lauren & Beau · Phoenix",
+    filename: "venue-barn-string-lights.jpg",
+    caption: "Barn reception",
     className: "col-span-2",
   },
 ] as const;
@@ -42,18 +43,23 @@ export function FeaturedWeddings() {
         </div>
 
         <div className="grid auto-rows-[150px] grid-cols-2 gap-[18px] min-[881px]:auto-rows-[200px] min-[881px]:grid-cols-4">
-          {weddings.map((wedding) => (
-            <PlaceholderPhoto
-              key={wedding.caption}
-              label={wedding.label}
-              alt={`Wedding photo: ${wedding.caption}`}
-              className={wedding.className}
-            >
-              <span className="absolute bottom-3.5 left-4 z-[2] bg-white/86 px-[11px] py-[5px] font-sans text-[0.7rem] uppercase tracking-btn text-charcoal">
-                {wedding.caption}
-              </span>
-            </PlaceholderPhoto>
-          ))}
+          {weddings.map((wedding) => {
+            const slug = wedding.filename.replace(/\.[^.]+$/, "");
+            const alt = getAltText(slug);
+
+            return (
+              <Photo
+                key={wedding.filename}
+                src={gallerySrc(wedding.filename)}
+                alt={alt}
+                className={wedding.className}
+              >
+                <span className="absolute bottom-3.5 left-4 z-[2] bg-white/86 px-[11px] py-[5px] font-sans text-[0.7rem] uppercase tracking-btn text-charcoal">
+                  {wedding.caption}
+                </span>
+              </Photo>
+            );
+          })}
         </div>
       </Container>
     </section>

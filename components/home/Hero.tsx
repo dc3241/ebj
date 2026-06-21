@@ -2,7 +2,7 @@ import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
 import { LinkArrow } from "@/components/LinkArrow";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
 
 export function Hero() {
   return (
@@ -28,9 +28,10 @@ export function Hero() {
         </div>
       </div>
 
-      <PlaceholderPhoto
-        label="Hero photograph"
-        alt="Couple at their wedding celebration"
+      <Photo
+        src="/images/hero.jpg"
+        alt="Couple sharing a romantic moment at their wedding celebration"
+        priority
         className="order-1 aspect-[16/11] min-[881px]:order-2 min-[881px]:aspect-[4/5]"
       />
     </Container>

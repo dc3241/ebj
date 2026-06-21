@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { Container } from "@/components/Container";
 import { Eyebrow } from "@/components/Eyebrow";
-import { PlaceholderPhoto } from "@/components/PlaceholderPhoto";
+import { Photo } from "@/components/Photo";
 import { useMDXComponents } from "@/mdx-components";
 import { getPostBySlug, getPostSlugs } from "@/lib/blog";
 import { createPageMetadata } from "@/lib/metadata";
@@ -76,8 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.excerpt}
         </p>
 
-        <PlaceholderPhoto
-          label="Journal cover image"
+        <Photo
           alt={`Cover image for ${post.title}`}
           className="mt-10 aspect-[16/9]"
         />
