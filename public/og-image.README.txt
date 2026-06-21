@@ -1,0 +1,2 @@
+/* TODO: replace with branded share image (recommended 1200×630 JPG).
+   Swap public/og-image.jpg before launch — referenced in metadata and JSON-LD. */

@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --white: #ffffff;
+  --cream: #faf6f4;
+  --blush: #e8bcc3;
+  --rose: #b76e79;
+  --rose-dark: #9e5a65;
+  --charcoal: #2e2e30;
+  --slate: #7a7a80;
+  --line: #eae6e3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-white: var(--white);
+  --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-rose-dark: var(--rose-dark);
+  --color-charcoal: var(--charcoal);
+  --color-slate: var(--slate);
+  --color-line: var(--line);
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
+
+  --text-body: 1.0625rem;
+  --text-eyebrow: 0.72rem;
+  --tracking-eyebrow: 0.22em;
+  --tracking-nav: 0.14em;
+  --tracking-btn: 0.12em;
+
+  --breakpoint-nav: 880px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: var(--charcoal);
+  background: var(--white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--charcoal);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.photo-placeholder {
+  background: linear-gradient(
+    135deg,
+    #f3e3e6 0%,
+    var(--cream) 55%,
+    #efe7e2 100%
+  );
 }

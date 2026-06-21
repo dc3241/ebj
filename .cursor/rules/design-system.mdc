@@ -1,0 +1,19 @@
+---
+description: Design system and stack for the Events by Jordyn wedding site. Apply to all UI work.
+alwaysApply: true
+---
+
+# Events by Jordyn — Design System
+
+**Stack:** Next.js (App Router) + TypeScript + Tailwind. Static export (`output: 'export'`, `images.unoptimized: true`). Deploy target: Cloudflare Pages (free tier, commercial use allowed). Do NOT use Vercel's free Hobby plan — it's non-commercial only.
+
+**Visual source of truth:** @events-by-jordyn-homepage-mockup.html — match it closely, porting its CSS into Tailwind + reusable React components.
+**Full content/structure spec:** @events-by-jordyn-build-spec.md
+
+**Aesthetic:** elegant, editorial, airy. Pink is a restrained accent — white space and photography dominate. Never make it look "cute" or templated.
+
+**Colors (add to Tailwind theme):** white `#FFFFFF`, cream `#FAF6F4`, blush `#E8BCC3`, rose `#B76E79` (primary action), rose-dark `#9E5A65` (hover), charcoal `#2E2E30` (text), slate `#7A7A80` (muted), line `#EAE6E3` (borders).
+
+**Fonts (next/font/google):** Playfair Display (headings), Jost (body). Uppercase letter-spaced eyebrow labels above section headings.
+
+**Always:** mobile-first, responsive, accessible (semantic HTML, alt text, visible focus states, honor `prefers-reduced-motion`). Componentize and keep files small. Placeholder images get a `{/* TODO: replace with real photo */}` comment. Build ONE spec slice per task — don't scaffold everything at once.

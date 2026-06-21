@@ -1,0 +1,3 @@
+Icon placeholders for Slice 5:
+- app/icon.svg — TODO: replace with branded favicon artwork
+- app/apple-icon.png — TODO: replace with branded Apple touch icon (180×180)
