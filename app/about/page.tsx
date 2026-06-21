@@ -36,7 +36,8 @@ export default function AboutPage() {
       <section className="bg-cream">
         <Container className="grid items-center gap-[34px] pb-16 min-[881px]:grid-cols-[0.85fr_1.15fr] min-[881px]:gap-[60px] min-[881px]:pb-24">
           <Photo
-            alt="Portrait of Jordyn, wedding planner"
+            src="/images/about-portrait.jpg"
+            alt="Jordyn, wedding planner and founder of Events by Jordyn"
             className="aspect-[16/11] min-[881px]:aspect-[3/4]"
           />
 
